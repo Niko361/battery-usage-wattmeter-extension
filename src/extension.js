@@ -80,8 +80,8 @@ var BatLabelIndicator = GObject.registerClass(
         return "";  // Don't display anything if battery is full
       }
 
-      return status.includes('Charging') ? _(" +%s W").format(this._meas()) :
-              status.includes('Discharging') ? _(" −%s W").format(this._meas()) :
+      return status.includes('Charging') ? _("%sW ").format(this._meas()) :
+              status.includes('Discharging') ? _("%sW ").format(this._meas()) :
               status.includes('Unknown') ? _(" ?") :
                _(" N/A");
     }
@@ -89,7 +89,7 @@ var BatLabelIndicator = GObject.registerClass(
     // Convert power to string with appropriate formatting
     _meas() {
       const power = this._getPower();
-      return power < 0 ? 0 : String(Math.round(power)).padStart(2, '0');
+      return power < 0 ? 0 : String(power.toFixed(1));
     }
 
     // Update the indicator label
